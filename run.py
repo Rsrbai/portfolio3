@@ -2,10 +2,7 @@ from random import randint
 
 scores = {"computer": 0, "player": 0}
 
-comp_guesses = []
-player_guesses = []
-ships_comp_pos = []
-ships_player_pos = []
+
 
 
 class Board:
@@ -15,6 +12,8 @@ class Board:
         self.ships = ships
         self.name = name 
         self.type = type
+        self.ship_pos = []
+        self.guesses = []
         
 
     def place_ship(self, size, x, y, orientation):
