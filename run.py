@@ -56,6 +56,38 @@ def random_point_ship_orientation():
 
     return randint(0,3)
 
+def validate_computer_input(size, x, y, orientation):
+    try:
+        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+            raise ValueError(
+                f"Valid data = up, down, left and right, you entered {orientation}"
+            )   
+        elif orientation == "up":
+            if x-size+1 < 0:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "down":
+            if x+size-1 > size:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "left":
+            if y-size+1 < 0:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "right":
+            if y+size-1 > size:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    return True
+
 def validate_player_input(size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
@@ -111,7 +143,13 @@ def populate_computer_board(computer_board):
             size = random_point_ship_size()
             x = random_point(computer_board.size)
             y = random_point(computer_board.size)
-            orientation = ship_orientations[random_point_ship_size()]       
+            orientation = ship_orientations[random_point_ship_orientation()]  
+            if validate_computer_input(size, x, y, orientation):
+                computer_board.place_ship(size, x, y, orientation)     
+            else:
+                continue
+            break
+
 
 def play_game(computer_board, player_board):
     
@@ -119,9 +157,11 @@ def play_game(computer_board, player_board):
     print("**********************************")
     computer_board.print_board()    
     populate_player_board(player_board)
+    populate_computer_board(computer_board)
     player_board.print_board()
-        
-
+    print("**********************************")    
+    computer_board.print_board()   
+    
 def new_game():
 
     size = 10
@@ -143,6 +183,4 @@ def new_game():
 
 
 
-# new_game()
-size = random_point_ship_orientation()
-print(size)
+new_game()
