@@ -48,9 +48,9 @@ def random_point(size):
 
     return randint(0, size-1)
 
-def random_point_ship_size(ship_size):
+def random_point_ship_size():
 
-    return randint(1, 5)
+    return randint(1, 4)
 
 def validate_player_input(size, x, y, orientation):
     try:
@@ -99,12 +99,15 @@ def populate_player_board(player_board):
                 continue
             break
 
-# def populate_computer_board(computer_board):
-
-#     for i in range(computer_board.ships):
-#       whil
-#           size = random_point(computer_board.size)
-        
+def populate_computer_board(computer_board):
+      
+    ship_orientations = ["up", "down","left","right"]
+    for i in range(computer_board.ships):
+        while True:
+            size = random_point_ship_size()
+            x = random_point(computer_board.size)
+            y = random_point(computer_board.size)
+            orientation = ship_orientations[random_point_ship_size()]       
 
 def play_game(computer_board, player_board):
     
@@ -136,4 +139,6 @@ def new_game():
 
 
 
-new_game()
+# new_game()
+size = random_point_ship_size()
+print(size)
