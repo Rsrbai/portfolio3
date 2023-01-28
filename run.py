@@ -2,6 +2,12 @@ from random import randint
 
 scores = {"computer": 0, "player": 0}
 
+comp_guesses = []
+player_guesses = []
+ships_comp_pos = []
+ships_player_pos = []
+
+
 class Board:
     def __init__(self, size, ships, name, type):
         self.size = size
@@ -9,8 +15,7 @@ class Board:
         self.ships = ships
         self.name = name 
         self.type = type
-        self.guesses = []
-        self.ships_pos = []
+        
 
     def place_ship(self, size, x, y, orientation):
         if orientation == "up":
@@ -37,30 +42,33 @@ class Board:
             print(" ".join(row))
 
 def validate_player_input(size, x, y, orientation):
-    if orientation == "up":
+    if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+        print("Incorrect orientation value")
+        return  
+    elif orientation == "up":
         if x-size+1 < 0:
             print("Ship does not fit on the board")
             return 
     elif orientation == "down":
         if x+size-1 > size:
             print("Ship does not fit on the board")
-            return
+            return 
     elif orientation == "left":
         if y-size+1 < 0:
             print("Ship does not fit on the board")
-            return
+            return 
     elif orientation == "right":
         if y+size-1 > size:
             print("Ship does not fit on the board")
-            return
+            return 
 
 
 def populate_player_board(player_board):
     
     for i in range(player_board.ships):
         size = int(input("Enter the size of your ship: \n"))
-        x = int(input("Enter x coordinate for ship placement: \n"))
-        y = int(input("Enter y coordinate for ship placement: \n"))
+        x = int(input("Enter row for ship placement: \n"))
+        y = int(input("Enter column coordinate for ship placement: \n"))
         orientation = input("Enter the orientation for the ship: \n")
         validate_player_input(size, x, y, orientation)
         player_board.place_ship(size, x, y, orientation)
@@ -78,11 +86,12 @@ def play_game(computer_board, player_board):
     computer_board.print_board()    
     populate_player_board(player_board)
     player_board.print_board()
+    print(ships_player_pos)    
 
 def new_game():
 
     size = 10
-    ships_no = 3
+    ships_no = 1
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
