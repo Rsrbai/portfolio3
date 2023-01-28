@@ -20,15 +20,19 @@ class Board:
         if orientation == "up":
             for i in range(size):
                 self.board[x-i][y] = "S"
+                self.ship_pos.append((x-i, y))
         elif orientation == "down":
             for i in range(size):
                 self.board[x+i][y] = "S"
+                self.ship_pos.append((x+i, y))
         elif orientation == "left":
             for i in range(size):
                 self.board[x][y-i] = "S"
+                self.ship_pos.append((x, y-i))
         elif orientation == "right":
             for i in range(size):
                 self.board[x][y+i] = "S"
+                self.ship_pos.append((x, y+i))
     
     def print_board(self):
         if self.type == "player":
@@ -85,7 +89,7 @@ def play_game(computer_board, player_board):
     computer_board.print_board()    
     populate_player_board(player_board)
     player_board.print_board()
-    print(ships_player_pos)    
+    print(player_board.ship_pos)    
 
 def new_game():
 
