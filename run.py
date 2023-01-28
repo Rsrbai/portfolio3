@@ -14,17 +14,29 @@ class Board:
 
     def place_ship(self, size, x, y, orientation):
         if orientation == "up":
-            for i in range(size):
-                self.board[x][y+i] = "S"
-        elif orientation == "down":
-            for i in range(size):
-                self.board[x][y-i] = "S"
-        elif orientation == "left":
+            if x-size+1 < 0:
+                print("Ship does not fit on the board")
+                return
             for i in range(size):
                 self.board[x-i][y] = "S"
-        else:
+        elif orientation == "down":
+            if x+size-1 > self.size:
+                print("Ship does not fit on the board")
+                return
             for i in range(size):
                 self.board[x+i][y] = "S"
+        elif orientation == "left":
+            if y-size+1 < 0:
+                print("Ship does not fit on the board")
+                return
+            for i in range(size):
+                self.board[x][y-i] = "S"
+        else:
+            if y+size-1 > self.size:
+                print("Ship does not fit on the board")
+                return
+            for i in range(size):
+                self.board[x][y+i] = "S"
     
     def print(self):
         if self.type == "player":
@@ -36,6 +48,9 @@ class Board:
         for row in self.board:
             print(" ".join(row))
 
+# def validate_player_input(size, x, y, orientation):
+
+
 def populate_player_board(player_board):
     
     for i in range(player_board.ships):
@@ -43,6 +58,7 @@ def populate_player_board(player_board):
         x = int(input("Enter x coordinate for ship placement: \n"))
         y = int(input("Enter y coordinate for ship placement: \n"))
         orientation = input("Enter the orientation for the ship: \n")
+        # validate_player_input(size, x, y, orientation)
         player_board.place_ship(size, x, y, orientation)
         
 
