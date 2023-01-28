@@ -2,7 +2,7 @@ from random import randint
 
 scores = {"computer": 0, "player": 0}
 
-class board:
+class Board:
     def __init__(self, size, ships, name, type):
         self.size = size
         self.board = [["." for x in range(size)] for y in range(size)]
@@ -31,12 +31,16 @@ class Ship:
         self.size = size
         self.name = name
 
+def play_game(computer_board, player_board):
+
+    print(player_board.board)
+
 def new_game():
 
-    size = 10
+    size = 5
     ships_no = 3
-    scores.computer = 0
-    scores.player = 0
+    scores["computer"] = 0
+    scores["player"] = 0
     print("**********************************")
     print("Welcome to Triple Threat")
     print(f"Board size:{size}. Number of ships: {ships_no}")
@@ -47,6 +51,8 @@ def new_game():
 
     computer_board = Board(size, ships_no, "Computer", type="computer")
     player_board = Board(size, ships_no, player_name, type="player")
+
+    play_game(computer_board, player_board)
 
 
 
