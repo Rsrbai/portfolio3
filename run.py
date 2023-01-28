@@ -22,7 +22,7 @@ class Board:
         elif orientation == "left":
             for i in range(size):
                 self.board[x][y-i] = "S"
-        else:
+        elif orientation == "right":
             for i in range(size):
                 self.board[x][y+i] = "S"
     
@@ -49,7 +49,7 @@ def validate_player_input(size, x, y, orientation):
         if y-size+1 < 0:
             print("Ship does not fit on the board")
             return
-    else:
+    elif orientation == "right":
         if y+size-1 > size:
             print("Ship does not fit on the board")
             return
