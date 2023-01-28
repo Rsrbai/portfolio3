@@ -52,6 +52,10 @@ def random_point_ship_size():
 
     return randint(1, 4)
 
+def random_point_ship_orientation():
+
+    return randint(0,3)
+
 def validate_player_input(size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
@@ -140,5 +144,5 @@ def new_game():
 
 
 # new_game()
-size = random_point_ship_size()
+size = random_point_ship_orientation()
 print(size)
