@@ -1,5 +1,7 @@
 from random import randint
 
+scores = {"computer": 0, "player": 0}
+
 class board:
     def __init__(self, size, ships, name, type):
         self.size = size
@@ -28,4 +30,6 @@ class Ship:
     def __init__(self, size, name):
         self.size = size
         self.name = name
+
+def new_game():
 
