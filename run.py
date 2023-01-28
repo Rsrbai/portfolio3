@@ -20,4 +20,10 @@ class board:
                 self.board[x-i][y] = "S"
         else:
             for i in range(ship.size):
-                self.board[x+i][y]
+                self.board[x+i][y] = "S"
+
+class Ship:
+    def __init__(self, size, name):
+        self.size = size
+        self.name = name
+                
