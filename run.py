@@ -10,12 +10,13 @@ class Board:
         self.name = name 
         self.type = type
         self.guesses = []
-        self.ships = []
+        self.ships_pos = []
 
-    def place_ship(self, ship, x, y, orientation):
+    def place_ship(self, size, x, y, orientation):
         if orientation == "up":
             for i in range(ship.size):
                 self.board[x][y+i] = "S"
+                self.ships_pos.append(self.board[x][y+i])
         elif orientation == "down":
             for i in range(ship.size):
                 self.board[x][y-i] = "S"
@@ -29,20 +30,26 @@ class Board:
     def print(self):
         if self.type == "player":
             print(f"{self.type}: {self.name}")
+            print("0 1 2 3 4 5 6 7 8 9")
         else:
             print("Computer")
+            print("0 1 2 3 4 5 6 7 8 9")
         for row in self.board:
             print(" ".join(row))
 
-class Ship:
-    def __init__(self, size, name):
-        self.size = size
-        self.name = name
-
-
+def populate_player_board(player_board):
+    
+    for i in range(player_board.ships):
+        size = int(input("Enter the size of your ship: \n"))
+        x = int(input("Enter x coordinate for ship placement: \n"))
+        y = int(input("Enter y coordinate for ship placement: \n"))
+        orientation = input("Enter the orientation for the ship (horizontal or vertical): \n")
+        player_board.place_ship(x, y, orientation)
+        
 
 def play_game(computer_board, player_board):
-
+    
+    populate_player_board(player_board)
     player_board.print()
     print("**********************************")
     computer_board.print()    
