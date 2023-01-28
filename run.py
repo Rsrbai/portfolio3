@@ -25,24 +25,36 @@ class Board:
         else:
             for i in range(ship.size):
                 self.board[x+i][y] = "S"
+    
+    def print(self):
+        if self.type == "player":
+            print(f"{self.type}: {self.name}")
+        else:
+            print("Computer")
+        for row in self.board:
+            print(" ".join(row))
 
 class Ship:
     def __init__(self, size, name):
         self.size = size
         self.name = name
 
+
+
 def play_game(computer_board, player_board):
 
-    print(player_board.board)
+    player_board.print()
+    print("**********************************")
+    computer_board.print()    
 
 def new_game():
 
-    size = 5
+    size = 10
     ships_no = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
-    print("Welcome to Triple Threat")
+    print("Welcome to Impending Doom")
     print(f"Board size:{size}. Number of ships: {ships_no}")
     print("Top left corner is row: 0, col: 0")
     print("**********************************")
