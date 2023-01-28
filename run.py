@@ -14,17 +14,16 @@ class Board:
 
     def place_ship(self, size, x, y, orientation):
         if orientation == "up":
-            for i in range(ship.size):
+            for i in range(size):
                 self.board[x][y+i] = "S"
-                self.ships_pos.append(self.board[x][y+i])
         elif orientation == "down":
-            for i in range(ship.size):
+            for i in range(size):
                 self.board[x][y-i] = "S"
         elif orientation == "left":
-            for i in range(ship.size):
+            for i in range(size):
                 self.board[x-i][y] = "S"
         else:
-            for i in range(ship.size):
+            for i in range(size):
                 self.board[x+i][y] = "S"
     
     def print(self):
@@ -43,16 +42,16 @@ def populate_player_board(player_board):
         size = int(input("Enter the size of your ship: \n"))
         x = int(input("Enter x coordinate for ship placement: \n"))
         y = int(input("Enter y coordinate for ship placement: \n"))
-        orientation = input("Enter the orientation for the ship (horizontal or vertical): \n")
-        player_board.place_ship(x, y, orientation)
+        orientation = input("Enter the orientation for the ship: \n")
+        player_board.place_ship(size, x, y, orientation)
         
 
 def play_game(computer_board, player_board):
     
-    populate_player_board(player_board)
     player_board.print()
     print("**********************************")
     computer_board.print()    
+    populate_player_board(player_board)
 
 def new_game():
 
