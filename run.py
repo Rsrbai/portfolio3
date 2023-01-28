@@ -33,3 +33,21 @@ class Ship:
 
 def new_game():
 
+    size = 10
+    ships_no = 3
+    scores.computer = 0
+    scores.player = 0
+    print("**********************************")
+    print("Welcome to Triple Threat")
+    print(f"Board size:{size}. Number of ships: {ships_no}")
+    print("Top left corner is row: 0, col: 0")
+    print("**********************************")
+    player_name = input("Please enter your name: \n")
+    print("**********************************")
+
+    computer_board = Board(size, ships_no, "Computer", type="computer")
+    player_board = Board(size, ships_no, player_name, type="player")
+
+
+
+new_game()
