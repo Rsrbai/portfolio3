@@ -97,12 +97,13 @@ def populate_player_board(player_board):
                 player_board.place_ship(size, x, y, orientation)
             else:
                 continue
-        break
+            break
 
 # def populate_computer_board(computer_board):
 
 #     for i in range(computer_board.ships):
-
+#       whil
+#           size = random_point(computer_board.size)
         
 
 def play_game(computer_board, player_board):
