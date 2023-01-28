@@ -7,6 +7,8 @@ class board:
         self.ships = ships
         self.name = name 
         self.type = type
+        self.guesses = []
+        self.ships = []
 
     def place_ship(self, ship, x, y, orientation):
         if orientation == "up":
@@ -26,4 +28,4 @@ class Ship:
     def __init__(self, size, name):
         self.size = size
         self.name = name
-                
+
