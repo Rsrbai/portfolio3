@@ -14,27 +14,15 @@ class Board:
 
     def place_ship(self, size, x, y, orientation):
         if orientation == "up":
-            if x-size+1 < 0:
-                print("Ship does not fit on the board")
-                return
             for i in range(size):
                 self.board[x-i][y] = "S"
         elif orientation == "down":
-            if x+size-1 > self.size:
-                print("Ship does not fit on the board")
-                return
             for i in range(size):
                 self.board[x+i][y] = "S"
         elif orientation == "left":
-            if y-size+1 < 0:
-                print("Ship does not fit on the board")
-                return
             for i in range(size):
                 self.board[x][y-i] = "S"
         else:
-            if y+size-1 > self.size:
-                print("Ship does not fit on the board")
-                return
             for i in range(size):
                 self.board[x][y+i] = "S"
     
@@ -48,7 +36,23 @@ class Board:
         for row in self.board:
             print(" ".join(row))
 
-# def validate_player_input(size, x, y, orientation):
+def validate_player_input(size, x, y, orientation):
+    if orientation == "up":
+        if x-size+1 < 0:
+            print("Ship does not fit on the board")
+            return 
+    elif orientation == "down":
+        if x+size-1 > size:
+            print("Ship does not fit on the board")
+            return
+    elif orientation == "left":
+        if y-size+1 < 0:
+            print("Ship does not fit on the board")
+            return
+    else:
+        if y+size-1 > size:
+            print("Ship does not fit on the board")
+            return
 
 
 def populate_player_board(player_board):
@@ -58,8 +62,13 @@ def populate_player_board(player_board):
         x = int(input("Enter x coordinate for ship placement: \n"))
         y = int(input("Enter y coordinate for ship placement: \n"))
         orientation = input("Enter the orientation for the ship: \n")
-        # validate_player_input(size, x, y, orientation)
+        validate_player_input(size, x, y, orientation)
         player_board.place_ship(size, x, y, orientation)
+
+# def populate_computer_board(computer_board):
+
+#     for i in range(computer_board.ships):
+
         
 
 def play_game(computer_board, player_board):
@@ -68,6 +77,7 @@ def play_game(computer_board, player_board):
     print("**********************************")
     computer_board.print_board()    
     populate_player_board(player_board)
+    player_board.print_board()
 
 def new_game():
 
