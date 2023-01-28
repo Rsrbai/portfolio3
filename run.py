@@ -38,7 +38,7 @@ class Board:
             for i in range(size):
                 self.board[x][y+i] = "S"
     
-    def print(self):
+    def print_board(self):
         if self.type == "player":
             print(f"{self.type}: {self.name}")
             print("0 1 2 3 4 5 6 7 8 9")
@@ -64,9 +64,9 @@ def populate_player_board(player_board):
 
 def play_game(computer_board, player_board):
     
-    player_board.print()
+    player_board.print_board()
     print("**********************************")
-    computer_board.print()    
+    computer_board.print_board()    
     populate_player_board(player_board)
 
 def new_game():
