@@ -81,19 +81,23 @@ def validate_player_input(size, x, y, orientation):
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-        
+
     return True
 
 
 def populate_player_board(player_board):
     
     for i in range(player_board.ships):
-        size = int(input("Enter the size of your ship: \n"))
-        x = int(input("Enter row for ship placement: \n"))
-        y = int(input("Enter column coordinate for ship placement: \n"))
-        orientation = input("Enter the orientation for the ship: \n")
-        validate_player_input(size, x, y, orientation)
-        player_board.place_ship(size, x, y, orientation)
+        while True:
+            size = int(input("Enter the size of your ship: \n"))
+            x = int(input("Enter row for ship placement: \n"))
+            y = int(input("Enter column coordinate for ship placement: \n"))
+            orientation = input("Enter the orientation for the ship: \n")
+            if validate_player_input(size, x, y, orientation):
+                player_board.place_ship(size, x, y, orientation)
+            else:
+                continue
+        break
 
 # def populate_computer_board(computer_board):
 
