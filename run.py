@@ -44,26 +44,45 @@ class Board:
         for row in self.board:
             print(" ".join(row))
 
+def random_point(size):
+
+    return randint(0, size-1)
+
+def random_point_ship_size(ship_size):
+
+    return randint(1, 5)
+
 def validate_player_input(size, x, y, orientation):
-    if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
-        print("Incorrect orientation value")
-        return  
-    elif orientation == "up":
-        if x-size+1 < 0:
-            print("Ship does not fit on the board")
-            return 
-    elif orientation == "down":
-        if x+size-1 > size:
-            print("Ship does not fit on the board")
-            return 
-    elif orientation == "left":
-        if y-size+1 < 0:
-            print("Ship does not fit on the board")
-            return 
-    elif orientation == "right":
-        if y+size-1 > size:
-            print("Ship does not fit on the board")
-            return 
+    try:
+        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+            raise ValueError(
+                f"Valid data = up, down, left and right, you entered {orientation}"
+            )   
+        elif orientation == "up":
+            if x-size+1 < 0:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "down":
+            if x+size-1 > size:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "left":
+            if y-size+1 < 0:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+        elif orientation == "right":
+            if y+size-1 > size:
+                raise ValueError(
+                    f"Ships coordinates must not go off the board"
+                )
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")
+        return False
+        
+    return True
 
 
 def populate_player_board(player_board):
@@ -89,7 +108,7 @@ def play_game(computer_board, player_board):
     computer_board.print_board()    
     populate_player_board(player_board)
     player_board.print_board()
-    print(player_board.ship_pos)    
+        
 
 def new_game():
 
