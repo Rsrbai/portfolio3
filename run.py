@@ -16,11 +16,6 @@ class Board:
         self.ship_pos = []
         self.guesses = []
 
-    
-    # def guessed_pos(self, x, y, type):
-
-    #     if 
-
             
 
     def place_ship(self, size, x, y, orientation, type):
@@ -45,6 +40,16 @@ class Board:
                     self.board[x][y+i] = "S"
                 self.ship_pos.append((x, y+i))
 
+    def guess(self, x, y):
+
+        self.guesses.append((x, y))
+        self.board[x][y] = "M"
+
+        if (x, y) in self.ship_pos:
+            self.board[x][y] = "H"
+            return "Hit"
+        else:
+            return "Miss"
     
     def print_board(self):
         if self.type == "player":
@@ -120,7 +125,7 @@ def populate_player_board(player_board):
             y = int(input("Enter column coordinate for ship placement: \n"))
             orientation = input("Enter the orientation for the ship: \n")
             if validate_player_input(size, x, y, orientation):
-                player_board.place_ship(size, x, y, orientation, "player")
+                player_board.place_ship(size, x, y, orientation, "player") 
             else:
                 continue
             break
@@ -140,18 +145,28 @@ def populate_computer_board(computer_board):
                 continue
             break
 
-def attack_enemy(computer_board, player_board):
+def player_attack(computer_board, player_board):
 
-    if player_board:
-        type = "player"
-        x = int(input("Enter the row coordinate for your attack!: \n"))
-        y = int(input("Enter the column coordinate for your attack! \n"))
-        player_board.guessed_pos(x, y, type)
-    elif computer_board:
-        type = "computer"
-        x = random_point(computer_board.size)
-        y = random_point(computer_board.size)
-        computer_board.guessed_pos(x, y, type)
+    type = "player"
+    x = int(input("Enter the row coordinate for your attack!: \n"))
+    y = int(input("Enter the column coordinate for your attack! \n"))
+    if computer_board.guess(x, y) == "Hit":
+            print("You hit their ship!")
+            scores["player"] += 1
+    else:
+        print("You missed their ship!")
+
+
+def computer_attack(computer_board, player_board):
+
+    type = "computer"
+    x = random_point(computer_board.size)
+    y = random_point(computer_board.size)
+    if player_board.guess(x, y) == "Hit":
+        print("The computer hit your ship!")
+        scores["computer"] += 1
+    else:
+        print("The computer missed your ship!")
 
 
     
@@ -168,6 +183,15 @@ def play_game(computer_board, player_board):
     print("**********************************")    
     computer_board.print_board()   
     print(f"Scores are: {scores}")
+    print(player_board.ship_pos)
+    print(computer_board.ship_pos)
+    player_attack(computer_board, player_board)
+    computer_attack(computer_board, player_board)
+    player_board.print_board()
+    print("**********************************")    
+    computer_board.print_board()  
+    print(f"Scores are: {scores}")
+    
 
 def new_game():
 
