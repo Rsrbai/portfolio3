@@ -73,13 +73,9 @@ def random_point_ship_orientation():
 
     return randint(0,3)
 
-def validate_computer_input(size, computer_board, player_board, x, y, orientation):
+def validate_computer_input(size, x, y, orientation):
     try:
-        if (x, y) in player_board.ship_pos:
-            raise ValueError("Computer picking...")
-        elif (x, y) in computer_board.ship_pos:
-            raise ValueError("Computer picking...")
-        elif orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif orientation == "up":
             if x-size+1 < 0:
@@ -98,7 +94,7 @@ def validate_computer_input(size, computer_board, player_board, x, y, orientatio
         return False
     return True
 
-def validate_player_input(size, computer_board, player_board, x, y, orientation):
+def validate_player_input(size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
@@ -120,7 +116,7 @@ def validate_player_input(size, computer_board, player_board, x, y, orientation)
     return True
 
 
-def populate_player_board(computer_board, player_board):
+def populate_player_board(player_board):
     
     for i in range(player_board.ships):
         while True:
@@ -128,13 +124,13 @@ def populate_player_board(computer_board, player_board):
             x = int(input("Enter row for ship placement: \n"))
             y = int(input("Enter column coordinate for ship placement: \n"))
             orientation = input("Enter the orientation for the ship: \n")
-            if validate_player_input(size, computer_board, player_board, x, y, orientation):
+            if validate_player_input(size, x, y, orientation):
                 player_board.place_ship(size, x, y, orientation, "player") 
             else:
                 continue
             break
 
-def populate_computer_board(computer_board, player_board):
+def populate_computer_board(computer_board):
       
     ship_orientations = ["up", "down","left","right"]
     for i in range(computer_board.ships):
@@ -143,7 +139,7 @@ def populate_computer_board(computer_board, player_board):
             x = random_point(computer_board.size)
             y = random_point(computer_board.size)
             orientation = ship_orientations[random_point_ship_orientation()]  
-            if validate_computer_input(size, player_board, x, y, orientation):
+            if validate_computer_input(size, x, y, orientation):
                 computer_board.place_ship(size, x, y, orientation, "computer")     
             else:
                 continue
