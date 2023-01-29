@@ -185,18 +185,21 @@ def play_game(computer_board, player_board):
     print(f"Scores are: {scores}")
     print(player_board.ship_pos)
     print(computer_board.ship_pos)
-    player_attack(computer_board, player_board)
-    computer_attack(computer_board, player_board)
-    player_board.print_board()
-    print("**********************************")    
-    computer_board.print_board()  
-    print(f"Scores are: {scores}")
+    for i in range(player_board.attacks):
+        player_attack(computer_board, player_board)
+        computer_attack(computer_board, player_board)
+        player_board.print_board()
+        print("**********************************")    
+        computer_board.print_board()
+        print(f"Scores are: {scores}")
+    print("Game Over")
+
     
 
 def new_game():
 
     size = 10
-    ships_no = 1
+    ships_no = 3
     attacks = 5
     scores["computer"] = 0
     scores["player"] = 0
