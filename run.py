@@ -6,12 +6,13 @@ scores = {"computer": 0, "player": 0}
 
 
 class Board:
-    def __init__(self, size, ships, name, type):
+    def __init__(self, size, ships, name, attacks, type):
         self.size = size
         self.board = [["." for x in range(size)] for y in range(size)]
         self.ships = ships
         self.name = name 
         self.type = type
+        self.attacks = attacks
         self.ship_pos = []
         self.guesses = []
         
@@ -101,7 +102,6 @@ def validate_player_input(size, x, y, orientation):
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
-
     return True
 
 
@@ -134,6 +134,10 @@ def populate_computer_board(computer_board):
                 continue
             break
 
+def attack_enemy(computer_board, player_board):
+
+    
+
 
 def play_game(computer_board, player_board):
     
@@ -145,12 +149,13 @@ def play_game(computer_board, player_board):
     player_board.print_board()
     print("**********************************")    
     computer_board.print_board()   
-    print(computer_board.ship_pos)
+    print(f"Scores are: {scores}")
 
 def new_game():
 
     size = 10
     ships_no = 1
+    attacks = 5
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
@@ -161,8 +166,8 @@ def new_game():
     player_name = input("Please enter your name: \n")
     print("**********************************")
 
-    computer_board = Board(size, ships_no, "Computer", type="computer")
-    player_board = Board(size, ships_no, player_name, type="player")
+    computer_board = Board(size, ships_no, "Computer", attacks, type="computer")
+    player_board = Board(size, ships_no, player_name, attacks, type="player")
 
     play_game(computer_board, player_board)
 
