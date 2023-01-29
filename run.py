@@ -145,17 +145,32 @@ def populate_computer_board(computer_board):
                 continue
             break
 
+# def validate_attacks(x, y, type):
+
+#     try:
+#         if type == "player":
+#             if (x, y) in computer_board.guesses:
+#                 raise ValueError("You have already hit these coordinates!")
+#                 return False
+#         if type == "computer":
+#             if (x, y) in player_board.guesses:
+#                 raise ValueError("Computer attacking..")
+#     except ValueError as e:
+#         print(f"Invalid data: {e}.")
+#     return True
+
 def player_attack(computer_board, player_board):
 
     type = "player"
     x = int(input("Enter the row coordinate for your attack!: \n"))
     y = int(input("Enter the column coordinate for your attack! \n"))
-    if computer_board.guess(x, y) == "Hit":
-            print("You hit their ship!")
-            scores["player"] += 1
-    else:
-        print("You missed their ship!")
-
+    if validate_attacks(x, y, type):
+        if computer_board.guess(x, y) == "Hit":
+                print("You hit their ship!")
+                scores["player"] += 1
+        elif computer_board.guess(x, y) == "Miss":
+            print("You missed their ship!")
+        
 
 def computer_attack(computer_board, player_board):
 
@@ -192,7 +207,11 @@ def play_game(computer_board, player_board):
         print("**********************************")    
         computer_board.print_board()
         print(f"Scores are: {scores}")
-    print("Game Over")
+    if scores["player"] > scores["computer"]:
+        print("Player wins!")
+    else:
+        print("Computer")
+    
 
     
 
@@ -200,7 +219,7 @@ def new_game():
 
     size = 10
     ships_no = 3
-    attacks = 5
+    attacks = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
