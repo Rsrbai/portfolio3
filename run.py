@@ -15,7 +15,13 @@ class Board:
         self.attacks = attacks
         self.ship_pos = []
         self.guesses = []
-        
+
+    
+    # def guessed_pos(self, x, y, type):
+
+    #     if 
+
+            
 
     def place_ship(self, size, x, y, orientation, type):
         if orientation == "up":
@@ -135,6 +141,18 @@ def populate_computer_board(computer_board):
             break
 
 def attack_enemy(computer_board, player_board):
+
+    if player_board:
+        type = "player"
+        x = int(input("Enter the row coordinate for your attack!: \n"))
+        y = int(input("Enter the column coordinate for your attack! \n"))
+        player_board.guessed_pos(x, y, type)
+    elif computer_board:
+        type = "computer"
+        x = random_point(computer_board.size)
+        y = random_point(computer_board.size)
+        computer_board.guessed_pos(x, y, type)
+
 
     
 
