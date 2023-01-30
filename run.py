@@ -76,7 +76,7 @@ def random_point_ship_orientation():
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
-            raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
+            raise ValueError(f"Valid data = up, down, left and right. You entered {orientation}")   
         elif orientation == "up":
             if x-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
@@ -222,12 +222,13 @@ def new_game():
 
     size = 10
     ships_no = 3
-    attacks = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
     print("Welcome to World of Battleships")
-    print(f"Board size:{size}. Number of ships: {ships_no}")
+    player_name = input("Please enter your name: \n")
+    attacks = input("Enter the amount of attacks each player will have: \n")
+    print(f"Board size:{size}. Number of ships: {ships_no} Number of attacks: {attacks}")
     print("Top left corner is row: 0, col: 0")
     print("**********************************")
     player_name = input("Please enter your name: \n")
