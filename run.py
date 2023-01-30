@@ -131,21 +131,25 @@ def validate_player_input_data(ship_size_input, x_input, y_input):
         int(y_input)
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
+        return False
+    return True
 
 
 def populate_player_board(player_board):
     
     for i in range(player_board.ships):
+
         while True:
             ship_size_input = input("Enter the size of your ship: \n")
             x_input = input("Enter row for ship placement: \n")
             y_input = input("Enter column coordinate for ship placement: \n")
             orientation = input("Enter the orientation for the ship: \n")
             if validate_player_input_data(ship_size_input, x_input, y_input):
-                ship_size = ship_size_input
-                x = x_input
-                y = y_input
+                ship_size = int(ship_size_input)
+                x = int(x_input)
+                y = int(y_input)
                 player_board.place_ship(ship_size, x, y, orientation, "player") 
+                break
             else:
                 continue
             break
@@ -244,27 +248,27 @@ def play_game(computer_board, player_board):
 def new_game():
 
     size = 10
-    ships_no = 1
+    ships = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
     print("Welcome to World of Battleships")
     player_name = input("Please enter your name: \n")
     while True:
-        attack_input = input("Enter the amount of attacks each player will have: \n")
+        attack_input = input("Enter the amount of attack (Number of attacks determines game length): \n")
         if validate_attacks_input(attack_input):
             attacks = int(attack_input)
         else:
             continue
         break
-    print(f"Board size:{size}. Number of ships: {ships_no} Number of attacks: {attacks}")
+    print(f"Board size:{size}. Number of ships: {ships} Number of attacks: {attacks}")
     print("Top left corner is row: 0, col: 0")
     print("**********************************")
     
     
 
-    computer_board = Board(size, ships_no, "Computer", attacks, type="computer")
-    player_board = Board(size, ships_no, player_name, attacks, type="player")
+    computer_board = Board(size, ships, "Computer", attacks, type="computer")
+    player_board = Board(size, ships, player_name, attacks, type="player")
 
     play_game(computer_board, player_board)
 
