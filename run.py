@@ -18,24 +18,24 @@ class Board:
 
             
 
-    def place_ship(self, size, x, y, orientation, type):
+    def place_ship(self, ship_size, x, y, orientation, type):
         if orientation == "up":
-            for i in range(size):
+            for i in range(ship_size):
                 if type == "player":
                     self.board[x-i][y] = "S"
                 self.ship_pos.append((x-i, y))
         elif orientation == "down":
-            for i in range(size):
+            for i in range(ship_size):
                 if type == "player":
                     self.board[x+i][y] = "S"
                 self.ship_pos.append((x+i, y))
         elif orientation == "left":
-            for i in range(size):
+            for i in range(ship_size):
                 if type == "player":
                     self.board[x][y-i] = "S"
                 self.ship_pos.append((x, y-i))
         elif orientation == "right":
-            for i in range(size):
+            for i in range(ship_size):
                 if type == "player":
                     self.board[x][y+i] = "S"
                 self.ship_pos.append((x, y+i))
@@ -73,42 +73,42 @@ def random_point_ship_orientation():
 
     return randint(0,3)
 
-def validate_computer_input(size, x, y, orientation):
+def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif orientation == "up":
-            if x-size+1 < 0:
+            if x-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "down":
-            if x+size-1 > size:
+            if x+ship_size-1 > computer_board.size:
                 raise ValueError("Computer picking...")
         elif orientation == "left":
-            if y-size+1 < 0:
+            if y-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "right":
-            if y+size-1 > size:
+            if y+ship_size-1 > computer_board.size:
                 raise ValueError("Computer picking...")
     except ValueError as e:
         print(f"Please wait: {e}")
         return False
     return True
 
-def validate_player_input(size, x, y, orientation):
+def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif orientation == "up":
-            if x-size+1 < 0:
+            if x-ship_size+1 < 0:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "down":
-            if x+size-1 > size:
+            if x+ship_size-1 > player_board.size:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "left":
-            if y-size+1 < 0:
+            if y-ship_size+1 < 0:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "right":
-            if y+size-1 > size:
+            if y+ship_size-1 > player_board.size:
                 raise ValueError("Ships coordinates must not go off the board")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
@@ -120,12 +120,12 @@ def populate_player_board(player_board):
     
     for i in range(player_board.ships):
         while True:
-            size = int(input("Enter the size of your ship: \n"))
+            ship_size = int(input("Enter the size of your ship: \n"))
             x = int(input("Enter row for ship placement: \n"))
             y = int(input("Enter column coordinate for ship placement: \n"))
             orientation = input("Enter the orientation for the ship: \n")
-            if validate_player_input(size, x, y, orientation):
-                player_board.place_ship(size, x, y, orientation, "player") 
+            if validate_player_input(player_board, ship_size, x, y, orientation):
+                player_board.place_ship(ship_size, x, y, orientation, "player") 
             else:
                 continue
             break
@@ -135,12 +135,12 @@ def populate_computer_board(computer_board):
     ship_orientations = ["up", "down","left","right"]
     for i in range(computer_board.ships):
         while True:
-            size = random_point_ship_size()
+            ship_size = random_point_ship_size()
             x = random_point(computer_board.size)
             y = random_point(computer_board.size)
             orientation = ship_orientations[random_point_ship_orientation()]  
-            if validate_computer_input(size, x, y, orientation):
-                computer_board.place_ship(size, x, y, orientation, "computer")     
+            if validate_computer_input(computer_board, ship_size, x, y, orientation):
+                computer_board.place_ship(ship_size, x, y, orientation, "computer")     
             else:
                 continue
             break
@@ -155,7 +155,7 @@ def validate_attacks(computer_board, player_board, x, y, type):
             if (x, y) in player_board.guesses:
                 raise ValueError("Computer attacking..")
     except ValueError as e:
-        print(f"Duplicate data: {e}, please try again.")
+        print(f"Invalid data: {e}, please try again.")
         return False
     return True
 
