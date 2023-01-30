@@ -185,16 +185,19 @@ def player_attack(computer_board, player_board):
         
 
 def computer_attack(computer_board, player_board):
-
-    type = "computer"
-    x = random_point(computer_board.size)
-    y = random_point(computer_board.size)
-    if player_board.guess(x, y) == "Hit":
-        print("The computer hit your ship!")
-        scores["computer"] += 1
-    else:
-        print("The computer missed your ship!")
-
+    while True:
+        type = "computer"
+        x = random_point(computer_board.size)
+        y = random_point(computer_board.size)
+        if validate_attacks(computer_board, player_board, x, y, type):
+            if player_board.guess(x, y) == "Hit":
+                print("The computer hit your ship!")
+                scores["computer"] += 1
+            elif player_board.guess(x, y) == "Miss":
+                print("The computer missed your ship!")
+            else: 
+                continue
+            break
 
     
 
