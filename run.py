@@ -73,6 +73,15 @@ def random_point_ship_orientation():
 
     return randint(0,3)
 
+def validate_attacks_input(attack_input):
+    try:
+        if not isinstance(int(attack_input), int):
+            raise ValueError("Attack value must be a number only")
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.")
+        return False
+    return True
+
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
@@ -227,12 +236,18 @@ def new_game():
     print("**********************************")
     print("Welcome to World of Battleships")
     player_name = input("Please enter your name: \n")
-    attacks = input("Enter the amount of attacks each player will have: \n")
+    while True:
+        attack_input = input("Enter the amount of attacks each player will have: \n")
+        if validate_attacks_input(attack_input):
+            attacks = int(attack_input)
+        else:
+            continue
+        break
     print(f"Board size:{size}. Number of ships: {ships_no} Number of attacks: {attacks}")
     print("Top left corner is row: 0, col: 0")
     print("**********************************")
-    player_name = input("Please enter your name: \n")
-    print("**********************************")
+    
+    
 
     computer_board = Board(size, ships_no, "Computer", attacks, type="computer")
     player_board = Board(size, ships_no, player_name, attacks, type="player")
