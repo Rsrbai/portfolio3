@@ -83,6 +83,9 @@ def validate_attacks_input(attack_input):
 
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
+        for i in range(computer_board.ships):
+            if (x, y+i) in computer_board.ship_pos:
+                raise ValueError("Computer picking...") 
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right. You entered {orientation}")   
         elif orientation == "up":
@@ -104,6 +107,9 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
 
 def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
+        for i in range(player_board.ships):
+            if (x, y+i) in player_board.ship_pos:
+                raise ValueError("You have already placed a ship here") 
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif orientation == "up":
@@ -148,11 +154,12 @@ def populate_player_board(player_board):
                 ship_size = int(ship_size_input)
                 x = int(x_input)
                 y = int(y_input)
-                player_board.place_ship(ship_size, x, y, orientation, "player") 
+                if validate_player_input(player_board, ship_size, x, y, orientation):
+                    player_board.place_ship(ship_size, x, y, orientation, "player") 
+                    break
+                else:
+                    continue
                 break
-            else:
-                continue
-            break
 
 def populate_computer_board(computer_board):
       
@@ -240,7 +247,7 @@ def play_game(computer_board, player_board):
     if scores["player"] > scores["computer"]:
         print("Player wins!")
     else:
-        print("Computer")
+        print("Computer wins!")
     
 
     
@@ -255,7 +262,7 @@ def new_game():
     print("Welcome to World of Battleships")
     player_name = input("Please enter your name: \n")
     while True:
-        attack_input = input("Enter the amount of attack (Number of attacks determines game length): \n")
+        attack_input = input("Enter the amount of attacks(Number of attacks determines game length): \n")
         if validate_attacks_input(attack_input):
             attacks = int(attack_input)
         else:
