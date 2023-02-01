@@ -71,7 +71,10 @@ class Board:
             print("")
         else:
             print("Computer")
-            print(f"  0 1 2 3 4 5 6 7 8")
+            print("  ", end="")
+            for i in range(0, self.size):
+                print(f"{i} ", end="")
+            print("")
         for i, row in enumerate(self.board):
             print(f"{i} " + " ".join(row))
 
