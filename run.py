@@ -86,10 +86,10 @@ def random_point_ship_orientation():
 
 def validate_attacks_input(attack_input):
     try:
-        int(attack_input)
         if attack_input == "n":
-            exit("You have ended the game")
-        elif int(attack_input) < 0:
+            exit("You have ended the game.")
+        int(attack_input)
+        if int(attack_input) < 0:
             raise ValueError("Attacks must be a positive number")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
@@ -124,7 +124,7 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
         for i in range(player_board.ships):
             if (x, y+i) in player_board.ship_pos:
-                raise ValueError("You have already placed a ship here") 
+                raise ValueError("You have already placed a ship here")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif orientation == "up":
@@ -145,8 +145,10 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
     return True
 
 
-def validate_player_input_data(ship_size_input, x_input, y_input):
+def validate_player_input_data(ship_size_input, x_input, y_input, orientation):
     try:
+        if ship_size_input == "n" or x_input == "n" or y_input == "n" or orientation == "n":
+            exit("You have ended the game.")
         int(ship_size_input)
         int(x_input)
         int(y_input)
@@ -169,7 +171,7 @@ def populate_player_board(player_board):
             x_input = input("Enter row for ship placement: \n")
             y_input = input("Enter column coordinate for ship placement: \n")
             orientation = input("Enter the orientation for the ship: \n")
-            if validate_player_input_data(ship_size_input, x_input, y_input):
+            if validate_player_input_data(ship_size_input, x_input, y_input, orientation):
                 ship_size = int(ship_size_input)
                 x = int(x_input)
                 y = int(y_input)
@@ -212,6 +214,8 @@ def validate_attacks(computer_board, player_board, x, y, type):
 def validate_attacks_data(x_input, y_input):
 
     try:
+        if x_input == "n" or y_input == "n":
+            exit("You have ended the game.")
         int(x_input)
         int(y_input)
         if int(x_input) < 0:
@@ -268,13 +272,15 @@ def play_game(computer_board, player_board):
     
     player_board.print_board()
     print("**********************************")
-    computer_board.print_board()    
+    computer_board.print_board()   
+    print("Enter 'n' and game will end at end of current phase") 
     populate_player_board(player_board)
     populate_computer_board(computer_board)
     player_board.print_board()
     print("**********************************")    
     computer_board.print_board()   
     print(f"Scores are: {scores}")
+    print("Enter 'n' and game will end at end of current phase")
     print(player_board.ship_pos)
     print(computer_board.ship_pos)
     for i in range(player_board.attacks):
@@ -289,6 +295,7 @@ def play_game(computer_board, player_board):
         else:
             computer_board.print_computer_end()
         print(f"Scores are: {scores}")
+        print("Enter 'n' and game will end at end of current phase")
     if scores["player"] > scores["computer"]:
         print("Player wins!")
     elif scores["player"] == scores["computer"]:
