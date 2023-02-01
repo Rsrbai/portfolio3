@@ -65,10 +65,13 @@ class Board:
     def print_board(self):
         if self.type == "player":
             print(f"{self.type}: {self.name}")
-            print("  0 1 2 3 4 5 6 7 8 9")
+            print("  ", end="")
+            for i in range(0, self.size):
+                print(f"{i} ", end="")
+            print("")
         else:
             print("Computer")
-            print("  0 1 2 3 4 5 6 7 8 9")
+            print(f"  0 1 2 3 4 5 6 7 8")
         for i, row in enumerate(self.board):
             print(f"{i} " + " ".join(row))
 
