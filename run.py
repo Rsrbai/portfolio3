@@ -76,6 +76,8 @@ def random_point_ship_orientation():
 def validate_attacks_input(attack_input):
     try:
         int(attack_input)
+        if int(attack_input) < 0:
+            raise ValueError("Attacks must be a positive number")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
         return False
