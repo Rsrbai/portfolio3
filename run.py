@@ -304,7 +304,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
-    size = 10
+    size = 9
     ships = 3
     scores["computer"] = 0
     scores["player"] = 0
