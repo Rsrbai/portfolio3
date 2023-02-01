@@ -113,13 +113,13 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
             if x-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "down":
-            if x+ship_size-1 > computer_board.size:
+            if x+ship_size-1 > computer_board.size-1:
                 raise ValueError("Computer picking...")
         elif orientation == "left":
             if y-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "right":
-            if y+ship_size-1 > computer_board.size:
+            if y+ship_size-1 > computer_board.size-1:
                 raise ValueError("Computer picking...")
     except ValueError as e:
         print(f"Please wait: {e}")
@@ -137,13 +137,13 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
             if x-ship_size+1 < 0:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "down":
-            if x+ship_size-1 > player_board.size:
+            if x+ship_size-1 > player_board.size-1:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "left":
             if y-ship_size+1 < 0:
                 raise ValueError("Ships coordinates must not go off the board")
         elif orientation == "right":
-            if y+ship_size-1 > player_board.size:
+            if y+ship_size-1 > player_board.size-1:
                 raise ValueError("Ships coordinates must not go off the board")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
@@ -226,11 +226,11 @@ def validate_attacks_data(player_board, x_input, y_input):
         int(y_input)
         if int(x_input) < 0:
             raise ValueError(f"Row number must be between 0 and {player_board.size - 1}")
-        elif int(x_input) > player_board.size:
+        elif int(x_input) > player_board.size-1:
             raise ValueError(f"Row number must be between 0 and {player_board.size - 1}")
         elif int(y_input) < 0:
             raise ValueError(f"Column number must be between 0 and {player_board.size - 1}") 
-        elif int(y_input) > player_board.size:
+        elif int(y_input) > player_board.size-1:
             raise ValueError(f"Column number must be between 0 and {player_board.size - 1}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
@@ -310,7 +310,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
-    size = 9
+    size = 8
     ships = 3
     scores["computer"] = 0
     scores["player"] = 0
