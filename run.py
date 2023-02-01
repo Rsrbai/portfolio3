@@ -15,6 +15,7 @@ class Board:
         self.attacks = attacks
         self.ship_pos = []
         self.guesses = []
+        self.hits = []
 
             
 
@@ -39,6 +40,13 @@ class Board:
                 if type == "player":
                     self.board[x][y+i] = "S"
                 self.ship_pos.append((x, y+i))
+    
+    def print_computer_end(self):
+
+        for x, y in self.ship_pos:
+            self.board[x][y] = "S"
+        for x, y in player_board.guesses
+        self.print_board()
 
     def guess(self, x, y):
 
@@ -137,6 +145,10 @@ def validate_player_input_data(ship_size_input, x_input, y_input):
         int(ship_size_input)
         int(x_input)
         int(y_input)
+        if int(ship_size_input) < 1:
+            raise ValueError("Ship size cannot be less than 1")
+        elif int(ship_size_input) > 4:
+            raise ValueError("Ship size cannot be greater than 4")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
         return False
@@ -198,13 +210,13 @@ def validate_attacks_data(x_input, y_input):
         int(x_input)
         int(y_input)
         if int(x_input) < 0:
-            raise ValueError(f"Row number must be between 0 and 9 you entered {x_input}")
+            raise ValueError(f"Row number must be between 0 and 9")
         elif int(x_input) > 9:
-            raise ValueError(f"Row number must be between 0 and 9 you entered {x_input}")
+            raise ValueError(f"Row number must be between 0 and 9")
         elif int(y_input) < 0:
-            raise ValueError(f"Column number must be between 0 and 9 you entered {y_input}") 
+            raise ValueError(f"Column number must be between 0 and 9") 
         elif int(y_input) > 9:
-            raise ValueError(f"Column number must be between 0 and 9 you entered {y_input}")
+            raise ValueError(f"Column number must be between 0 and 9")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
         return False
@@ -261,16 +273,20 @@ def play_game(computer_board, player_board):
     print(player_board.ship_pos)
     print(computer_board.ship_pos)
     for i in range(player_board.attacks):
+        print("**********************************")  
         player_attack(computer_board, player_board)
         computer_attack(computer_board, player_board)
         player_board.print_board()
         print("**********************************")    
-        computer_board.print_board()
+        computer_board.print_computer_end()
         print(f"Scores are: {scores}")
     if scores["player"] > scores["computer"]:
         print("Player wins!")
+    elif scores["player"] == scores["computer"]:
+        print("It's a tie!")
     else:
         print("Computer wins!")
+     
     
 
     
@@ -278,7 +294,7 @@ def play_game(computer_board, player_board):
 def new_game():
 
     size = 10
-    ships = 3
+    ships = 1
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
