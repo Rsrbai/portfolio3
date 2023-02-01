@@ -190,20 +190,41 @@ def validate_attacks(computer_board, player_board, x, y, type):
         return False
     return True
 
+def validate_attacks_data(x_input, y_input):
+
+    try:
+        int(x_input)
+        int(y_input)
+        if int(x_input) < 0:
+            raise ValueError(f"Row number must be between 0 and 9 you entered {x_input}")
+        elif int(x_input) > 9:
+            raise ValueError(f"Row number must be between 0 and 9 you entered {x_input}")
+        elif int(y_input) < 0:
+            raise ValueError(f"Column number must be between 0 and 9 you entered {y_input}") 
+        elif int(y_input) > 9:
+            raise ValueError(f"Column number must be between 0 and 9 you entered {y_input}")
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.")
+        return False
+    return True
+
 def player_attack(computer_board, player_board):
     while True:
         type = "player"
-        x = int(input("Enter the row coordinate for your attack!: \n"))
-        y = int(input("Enter the column coordinate for your attack! \n"))
-        if validate_attacks(computer_board, player_board, x, y, type):
-            if computer_board.guess(x, y) == "Hit":
-                    print("You hit their ship!")
-                    scores["player"] += 1
-            elif computer_board.guess(x, y) == "Miss":
-                print("You missed their ship!")
-            else:
-                continue
-            break
+        x_input = input("Enter the row coordinate for your attack!: \n")
+        y_input = input("Enter the column coordinate for your attack! \n")
+        if validate_attacks_data(x_input, y_input):
+            x = int(x_input)
+            y = int(y_input)
+            if validate_attacks(computer_board, player_board, x, y, type):
+                if computer_board.guess(x, y) == "Hit":
+                        print("You hit their ship!")
+                        scores["player"] += 1
+                elif computer_board.guess(x, y) == "Miss":
+                    print("You missed their ship!")
+                else:
+                    continue
+                break
         
 
 def computer_attack(computer_board, player_board):
