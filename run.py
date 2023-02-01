@@ -45,7 +45,8 @@ class Board:
 
         for x, y in self.ship_pos:
             self.board[x][y] = "S"
-        for x, y in player_board.guesses
+        for x, y in self.hits:
+            self.board[x][y] = "H"
         self.print_board()
 
     def guess(self, x, y):
@@ -55,6 +56,7 @@ class Board:
 
         if (x, y) in self.ship_pos:
             self.board[x][y] = "H"
+            self.hits.append((x, y))
             return "Hit"
         else:
             return "Miss"
@@ -277,8 +279,12 @@ def play_game(computer_board, player_board):
         player_attack(computer_board, player_board)
         computer_attack(computer_board, player_board)
         player_board.print_board()
-        print("**********************************")    
-        computer_board.print_computer_end()
+        print("**********************************")
+        computer_board.attacks -= 1
+        if computer_board.attacks > 0:    
+            computer_board.print_board()
+        else:
+            computer_board.print_computer_end()
         print(f"Scores are: {scores}")
     if scores["player"] > scores["computer"]:
         print("Player wins!")
