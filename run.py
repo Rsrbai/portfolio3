@@ -219,13 +219,13 @@ def validate_attacks_data(player_board, x_input, y_input):
         int(x_input)
         int(y_input)
         if int(x_input) < 0:
-            raise ValueError(f"Row number must be between 0 and 9")
+            raise ValueError(f"Row number must be between 0 and {player_board.size - 1}")
         elif int(x_input) > player_board.size:
-            raise ValueError(f"Row number must be between 0 and 9")
+            raise ValueError(f"Row number must be between 0 and {player_board.size - 1}")
         elif int(y_input) < 0:
-            raise ValueError(f"Column number must be between 0 and 9") 
+            raise ValueError(f"Column number must be between 0 and {player_board.size - 1}") 
         elif int(y_input) > player_board.size:
-            raise ValueError(f"Column number must be between 0 and 9")
+            raise ValueError(f"Column number must be between 0 and {player_board.size - 1}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
         return False
