@@ -272,15 +272,11 @@ def computer_attack(computer_board, player_board):
 
 def play_game(computer_board, player_board):
 
-    print("**********************************")
     player_board.print_board()
-    print("**********************************")
     computer_board.print_board()    
     populate_player_board(player_board)
     populate_computer_board(computer_board)
-    print("**********************************")
-    player_board.print_board()
-    print("**********************************")    
+    player_board.print_board()   
     computer_board.print_board()   
     print(f"Scores are: {scores}")
     print(player_board.ship_pos)
@@ -289,7 +285,6 @@ def play_game(computer_board, player_board):
         player_attack(computer_board, player_board)
         computer_attack(computer_board, player_board)
         player_board.print_board()
-        print("**********************************")
         computer_board.attacks -= 1
         if computer_board.attacks > 0:    
             computer_board.print_board()
