@@ -167,10 +167,10 @@ def populate_player_board(player_board):
     for i in range(player_board.ships):
 
         while True:
-            ship_size_input = input("Enter the size of your ship: \n")
-            x_input = input("Enter row for ship placement: \n")
-            y_input = input("Enter column coordinate for ship placement: \n")
-            orientation = input("Enter the orientation for the ship: \n")
+            ship_size_input = input("Enter the size of your ship (press n to quit): \n")
+            x_input = input("Enter row for ship placement (press n to quit): \n")
+            y_input = input("Enter column coordinate for ship placement (press n to quit): \n")
+            orientation = input("Enter the orientation for the ship (press n to quit): \n")
             if validate_player_input_data(ship_size_input, x_input, y_input, orientation):
                 ship_size = int(ship_size_input)
                 x = int(x_input)
@@ -234,8 +234,8 @@ def validate_attacks_data(x_input, y_input):
 def player_attack(computer_board, player_board):
     while True:
         type = "player"
-        x_input = input("Enter the row coordinate for your attack!: \n")
-        y_input = input("Enter the column coordinate for your attack! \n")
+        x_input = input("Enter the row coordinate for your attack!(n to quit): \n")
+        y_input = input("Enter the column coordinate for your attack!(n to quit): \n")
         if validate_attacks_data(x_input, y_input):
             x = int(x_input)
             y = int(y_input)
@@ -275,8 +275,7 @@ def play_game(computer_board, player_board):
     print("**********************************")
     player_board.print_board()
     print("**********************************")
-    computer_board.print_board()   
-    print("Enter 'n' and game will end at end of current phase") 
+    computer_board.print_board()    
     populate_player_board(player_board)
     populate_computer_board(computer_board)
     print("**********************************")
@@ -284,7 +283,6 @@ def play_game(computer_board, player_board):
     print("**********************************")    
     computer_board.print_board()   
     print(f"Scores are: {scores}")
-    print("Enter 'n' and game will end at end of current phase")
     print(player_board.ship_pos)
     print(computer_board.ship_pos)
     for i in range(player_board.attacks):
@@ -298,7 +296,6 @@ def play_game(computer_board, player_board):
         else:
             computer_board.print_computer_end()
         print(f"Scores are: {scores}")
-        print("Enter 'n' and the game will end at end of current phase")
     if scores["player"] > scores["computer"]:
         print("Player wins!")
     elif scores["player"] == scores["computer"]:
@@ -320,7 +317,7 @@ def new_game():
     print("Welcome to World of Battleships")
     player_name = input("Please enter your name: \n")
     while True:
-        attack_input = input("Enter the amount of attacks(Number of attacks determines game length): \n")
+        attack_input = input("Enter the amount of attacks(No. of attacks sets game length, n to quit): \n")
         if validate_attacks_input(attack_input):
             attacks = int(attack_input)
         else:
