@@ -167,7 +167,7 @@ def populate_player_board(player_board):
     for i in range(player_board.ships):
 
         while True:
-            ship_size_input = input("Enter the size of your ship (press n to quit): \n")
+            ship_size_input = input("Enter the size of your ship from 1-4 (press n to quit): \n")
             x_input = input("Enter row for ship placement (press n to quit): \n")
             y_input = input("Enter column coordinate for ship placement (press n to quit): \n")
             orientation = input("Enter the orientation for the ship (press n to quit): \n")
@@ -211,7 +211,7 @@ def validate_attacks(computer_board, player_board, x, y, type):
         return False
     return True
 
-def validate_attacks_data(x_input, y_input):
+def validate_attacks_data(player_board, x_input, y_input):
 
     try:
         if x_input == "n" or y_input == "n":
@@ -220,11 +220,11 @@ def validate_attacks_data(x_input, y_input):
         int(y_input)
         if int(x_input) < 0:
             raise ValueError(f"Row number must be between 0 and 9")
-        elif int(x_input) > 9:
+        elif int(x_input) > player_board.size:
             raise ValueError(f"Row number must be between 0 and 9")
         elif int(y_input) < 0:
             raise ValueError(f"Column number must be between 0 and 9") 
-        elif int(y_input) > 9:
+        elif int(y_input) > player_board.size:
             raise ValueError(f"Column number must be between 0 and 9")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.")
@@ -236,7 +236,7 @@ def player_attack(computer_board, player_board):
         type = "player"
         x_input = input("Enter the row coordinate for your attack!(n to quit): \n")
         y_input = input("Enter the column coordinate for your attack!(n to quit): \n")
-        if validate_attacks_data(x_input, y_input):
+        if validate_attacks_data(player_board, x_input, y_input):
             x = int(x_input)
             y = int(y_input)
             if validate_attacks(computer_board, player_board, x, y, type):
