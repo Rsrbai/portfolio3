@@ -65,12 +65,12 @@ class Board:
     def print_board(self):
         if self.type == "player":
             print(f"{self.type}: {self.name}")
-            print("   0 1 2 3 4 5 6 7 8 9")
+            print("  0 1 2 3 4 5 6 7 8 9")
         else:
             print("Computer")
-            print("   0 1 2 3 4 5 6 7 8 9")
+            print("  0 1 2 3 4 5 6 7 8 9")
         for i, row in enumerate(self.board):
-            print(f"{i}: " + " ".join(row))
+            print(f"{i} " + " ".join(row))
 
 def random_point(size):
 
@@ -258,9 +258,11 @@ def computer_attack(computer_board, player_board):
         if validate_attacks(computer_board, player_board, x, y, type):
             if player_board.guess(x, y) == "Hit":
                 print("The computer hit your ship!")
+                print("**********************************")
                 scores["computer"] += 1
             elif player_board.guess(x, y) == "Miss":
                 print("The computer missed your ship!")
+                print("**********************************")
             else: 
                 continue
             break
@@ -269,13 +271,15 @@ def computer_attack(computer_board, player_board):
 
 
 def play_game(computer_board, player_board):
-    
+
+    print("**********************************")
     player_board.print_board()
     print("**********************************")
     computer_board.print_board()   
     print("Enter 'n' and game will end at end of current phase") 
     populate_player_board(player_board)
     populate_computer_board(computer_board)
+    print("**********************************")
     player_board.print_board()
     print("**********************************")    
     computer_board.print_board()   
@@ -284,7 +288,6 @@ def play_game(computer_board, player_board):
     print(player_board.ship_pos)
     print(computer_board.ship_pos)
     for i in range(player_board.attacks):
-        print("**********************************")  
         player_attack(computer_board, player_board)
         computer_attack(computer_board, player_board)
         player_board.print_board()
@@ -325,7 +328,7 @@ def new_game():
         break
     print(f"Board size:{size}. Number of ships: {ships} Number of attacks: {attacks}")
     print("Top left corner is row: 0, col: 0")
-    print("**********************************")
+    
     
     
 
