@@ -298,7 +298,7 @@ def play_game(computer_board, player_board):
         else:
             computer_board.print_computer_end()
         print(f"Scores are: {scores}")
-        print("Enter 'n' and game will end at end of current phase")
+        print("Enter 'n' and the game will end at end of current phase")
     if scores["player"] > scores["computer"]:
         print("Player wins!")
     elif scores["player"] == scores["computer"]:
@@ -313,7 +313,7 @@ def play_game(computer_board, player_board):
 def new_game():
 
     size = 10
-    ships = 1
+    ships = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
