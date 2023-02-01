@@ -1,4 +1,5 @@
 from random import randint
+from sys import exit
 
 scores = {"computer": 0, "player": 0}
 
