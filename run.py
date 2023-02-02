@@ -150,8 +150,10 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
 
 def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
-        if x < 0 or x >= player_board.size or y < 0 or y >= player_board.size:
-            raise ValueError("Row and column numbers out of bounds")
+        if x < 0 or x >= player_board.size:
+            raise ValueError("Row numbers out of bounds") 
+        elif y < 0 or y >= player_board.size:
+            raise ValueError("Column numbers out of bounds")
         elif orientation not in ["up", "down", "left", "right"]:
             raise ValueError("Orientation must be one of 'up', 'down', 'left', 'right'")
         ship_end_x = x + (ship_size - 1) * (orientation in ["down", "up"])
