@@ -422,7 +422,7 @@ def new_game():
         else:
             continue
         break
-    print(f"Board size:{size}. Number of ships: {ships} Number of attacks: {attacks}")
+    print(f"Board size:{size} Number of ships: {ships} Number of attacks: {attacks}")
     print("Top left corner is row: 0, col: 0")
     
     
