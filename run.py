@@ -107,9 +107,7 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
         for i in range(computer_board.ships):
             if (x, y+i) in computer_board.ship_pos:
                 raise ValueError("Computer picking...") 
-        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
-            raise ValueError(f"Valid data = up, down, left and right. You entered {orientation}")   
-        elif orientation == "up":
+        if orientation == "up":
             if x-ship_size+1 < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "down":
@@ -154,7 +152,7 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
         if x < 0 or x >= player_board.size or y < 0 or y >= player_board.size:
             raise ValueError("Row and column numbers out of bounds")
-        if orientation not in ["up", "down", "left", "right"]:
+        elif orientation not in ["up", "down", "left", "right"]:
             raise ValueError("Orientation must be one of 'up', 'down', 'left', 'right'")
         ship_end_x = x + (ship_size - 1) * (orientation in ["down", "up"])
         ship_end_y = y + (ship_size - 1) * (orientation in ["right", "left"])
@@ -330,7 +328,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
-    size = 10
+    size = 8
     ships = 3
     scores["computer"] = 0
     scores["player"] = 0
