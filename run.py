@@ -325,11 +325,9 @@ def computer_attack(computer_board, player_board):
         if validate_attacks(computer_board, player_board, x, y, type):
             if player_board.guess(x, y) == "Hit":
                 print("The computer hit your ship!")
-                print("**********************************")
                 scores["computer"] += 1
             elif player_board.guess(x, y) == "Miss":
                 print("The computer missed your ship!")
-                print("**********************************")
             else: 
                 continue
             break
@@ -371,7 +369,7 @@ def play_game(computer_board, player_board):
 
 def new_game():
 
-    size = 8
+    size = 7
     ships = 3
     scores["computer"] = 0
     scores["player"] = 0
