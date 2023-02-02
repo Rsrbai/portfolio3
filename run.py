@@ -133,7 +133,7 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif x < 0 or x > (player_board.size - 1):
             raise ValueError(f"Row number must be between 0 and {player_board.size-1}")
-        elif y < 0 or x > (player_board.size - 1):
+        elif y < 0 or y > (player_board.size - 1):
             raise ValueError(f"Column number must be between 0 and {player_board.size-1}")
         ship_end_x_up = x - (ship_size - 1)
         ship_end_x_down = x + (ship_size - 1)
@@ -249,7 +249,7 @@ def validate_attacks(computer_board, player_board, x, y, type):
         if type == "player":
             if (x, y) in computer_board.guesses:
                 raise ValueError("You have already hit these coordinates")
-        if type == "computer":
+        elif type == "computer":
             if (x, y) in player_board.guesses:
                 raise ValueError("Computer attacking itself..")
     except ValueError as e:
