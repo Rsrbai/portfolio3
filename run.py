@@ -104,27 +104,50 @@ def validate_attacks_input(attack_input):
 
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
-        for i in range(computer_board.ships):
-            if (x, y+i) in computer_board.ship_pos:
-                raise ValueError("Computer picking...") 
+        if (x, y) in computer_board.ships:
+            raise ValueError("Computer picking...")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             exit("Fatal error")   
         ship_end_x_up = x - (ship_size - 1)
         ship_end_x_down = x + (ship_size - 1)
         ship_end_y_right = y + (ship_size - 1) 
         ship_end_y_left = y - (ship_size - 1)
+        # if (ship_end_x_up, y) in computer_board.ship_pos:
+        #     raise ValueError("Computer picking...")
+        # elif (ship_end_x_down, y) in computer_board.ship_pos:
+        #     raise ValueError("Computer picking...")
+        # elif (x, ship_end_y_left) in computer_board.ship_pos:
+        #     raise ValueError("Computer picking...")
+        # elif (x, ship_end_y_right) in computer_board.ship_pos:
+        #     raise ValueError("Computer picking...")
         if orientation == "up":
             if ship_end_x_up < 0:
                 raise ValueError("Computer picking...")
+            else:
+                for i in range(computer_board.ships):
+                    if (x-i, y) in computer_board.ship_pos:
+                        raise ValueError("Computer picking...1") 
         elif orientation == "down":
             if ship_end_x_down >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
+            else:
+                for i in range(computer_board.ships):
+                    if (x+i, y) in computer_board.ship_pos:
+                        raise ValueError("Computer picking...2") 
         elif orientation == "right":
             if ship_end_y_right >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
+            else:
+                for i in range(computer_board.ships):
+                    if (x, y+i) in computer_board.ship_pos:
+                        raise ValueError("Computer picking...3") 
         elif orientation == "left":
             if ship_end_y_left < 0:
                 raise ValueError("Computer picking...")
+            else:
+                for i in range(computer_board.ships):
+                    if (x, y-i) in computer_board.ship_pos:
+                        raise ValueError("Computer picking...4") 
         # if orientation == "up":
         #     if x-ship_size+1 < 0:
         #         raise ValueError("Computer picking...")
@@ -144,9 +167,8 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
 
 def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
-        for i in range(player_board.ships):
-            if (x, y+i) in player_board.ship_pos:
-                raise ValueError("You have already placed a ship here")
+        if (x, y) in player_board.ship_pos:
+            raise ValueError("You have already placed a ship here")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
         elif x < 0 or x > (player_board.size - 1):
@@ -160,15 +182,31 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
         if orientation == "up":
             if ship_end_x_up < 0:
                 raise ValueError("Ship goes out of bounds")
+            else:
+                for i in range(player_board.ships):
+                    if (x-i, y) in player_board.ship_pos:
+                        raise ValueError("Ship cannot extend on top of another ship1") 
         elif orientation == "down":
             if ship_end_x_down >= (player_board.size-1):
                 raise ValueError("Ship goes out of bounds")
+            else:
+                for i in range(player_board.ships):
+                    if (x+i, y) in player_board.ship_pos:
+                        raise ValueError("Ship cannot extend on top of another ship2") 
         elif orientation == "right":
             if ship_end_y_right >= (player_board.size-1):
                 raise ValueError("Ship goes out of bounds")
+            else:
+                for i in range(player_board.ships):
+                    if (x, y+i) in player_board.ship_pos:
+                        raise ValueError("Ship cannot extend on top of another ship3")
         elif orientation == "left":
             if ship_end_y_left < 0:
                 raise ValueError("Ship goes out of bounds")
+            else:
+                for i in range(player_board.ships):
+                    if (x, y-i) in player_board.ship_pos:
+                        raise ValueError("Ship cannot extend on top of another ship4") 
         # elif orientation == "up":
         #     if x-ship_size+1 < 0:
         #         raise ValueError("Ships coordinates must not go off the board")
@@ -181,6 +219,7 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
         # elif orientation == "right":
         #     if y+ship_size-1 >= player_board.size:
         #         raise ValueError("Ships coordinates must not go off the board")
+        # 2 1 right 3 2 up
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -370,7 +409,7 @@ def play_game(computer_board, player_board):
 def new_game():
 
     size = 7
-    ships = 3
+    ships = 5
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
