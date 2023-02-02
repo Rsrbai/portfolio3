@@ -251,9 +251,12 @@ def validate_attacks(computer_board, player_board, x, y, type):
                 raise ValueError("You have already hit these coordinates")
         if type == "computer":
             if (x, y) in player_board.guesses:
-                raise ValueError("Computer attacking..")
+                raise ValueError("Computer attacking itself..")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.")
+        if type == "player":
+            print(f"Invalid data: {e}, please try again.")
+        elif type == "computer":
+            print(f"Computer malfunction: {e}.")
         return False
     return True
 
