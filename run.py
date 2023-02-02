@@ -104,7 +104,7 @@ def validate_attacks_input(attack_input):
 
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
-        if (x, y) in computer_board.ships:
+        if (x, y) in range(computer_board.ships):
             raise ValueError("Computer picking...")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             exit("Fatal error")   
@@ -409,7 +409,7 @@ def play_game(computer_board, player_board):
 def new_game():
 
     size = 7
-    ships = 5
+    ships = 3
     scores["computer"] = 0
     scores["player"] = 0
     print("**********************************")
