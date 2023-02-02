@@ -124,51 +124,67 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
         return False
     return True
 
-# def validate_player_input(player_board, ship_size, x, y, orientation):
-#     try:
-#         for i in range(player_board.ships):
-#             if (x, y+i) in player_board.ship_pos:
-#                 raise ValueError("You have already placed a ship here")
-#         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
-#             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
-#         elif orientation == "up":
-#             if x-ship_size+1 < 0:
-#                 raise ValueError("Ships coordinates must not go off the board")
-#         elif orientation == "down":
-#             if x+ship_size-1 >= player_board.size:
-#                 raise ValueError("Ships coordinates must not go off the board")
-#         elif orientation == "left":
-#             if y-ship_size+1 < 0:
-#                 raise ValueError("Ships coordinates must not go off the board")
-#         elif orientation == "right":
-#             if y+ship_size-1 >= player_board.size:
-#                 raise ValueError("Ships coordinates must not go off the board")
-#     except ValueError as e:
-#         print(f"Invalid data: {e}, please try again.\n")
-#         return False
-#     return True
-
 def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
-        if x < 0 or x >= player_board.size:
-            raise ValueError("Row numbers out of bounds") 
-        elif y < 0 or y >= player_board.size:
-            raise ValueError("Column numbers out of bounds")
-        elif orientation not in ["up", "down", "left", "right"]:
-            raise ValueError("Orientation must be one of 'up', 'down', 'left', 'right'")
-        ship_end_x = x + (ship_size - 1) * (orientation in ["down", "up"])
-        ship_end_y = y + (ship_size - 1) * (orientation in ["right", "left"])
-        if ship_end_x < 0 or ship_end_x >= player_board.size or ship_end_y < 0 or ship_end_y >= player_board.size:
-            raise ValueError("Ship goes off the board")
-        for i in range(ship_size):
-            ship_x = x + i * (orientation in ["down", "up"])
-            ship_y = y + i * (orientation in ["right", "left"])
-            if (ship_x, ship_y) in player_board.ship_pos:
-                raise ValueError("You have already placed a ship at this location")
+        for i in range(player_board.ships):
+            if (x, y+i) in player_board.ship_pos:
+                raise ValueError("You have already placed a ship here")
+        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+            raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
+        elif x < 0 or x > (player_board.size - 1):
+            raise ValueError(f"Row number must be between 0 and {player_board.size-1}")
+        elif y < 0 or x > (player_board.size - 1):
+            raise ValueError(f"Column number must be between 0 and {player_board.size-1}")
+        ship_end_x_up = x - (ship_size - 1)
+        ship_end_x_down = x + (ship_size - 1)
+        ship_end_y_right = y + (ship_size - 1) 
+        ship_end_y_left = y - (ship_size - 1)
+        if ship_end_x_up < 0:
+            raise ValueError("Ship goes out of bounds")
+        elif ship_end_x_down >= (player_board.size-1):
+            raise ValueError("Ship goes out of bounds")
+        elif ship_end_y_right >= (player_board.size-1):
+            raise ValueError("Ship goes out of bounds")
+        elif ship_end_y_left < 0:
+            raise ValueError("Ship goes out of bounds")
+        # elif orientation == "up":
+        #     if x-ship_size+1 < 0:
+        #         raise ValueError("Ships coordinates must not go off the board")
+        # elif orientation == "down":
+        #     if x+ship_size-1 >= player_board.size:
+        #         raise ValueError("Ships coordinates must not go off the board")
+        # elif orientation == "left":
+        #     if y-ship_size+1 < 0:
+        #         raise ValueError("Ships coordinates must not go off the board")
+        # elif orientation == "right":
+        #     if y+ship_size-1 >= player_board.size:
+        #         raise ValueError("Ships coordinates must not go off the board")
     except ValueError as e:
-        print(f"Invalid data: {e}, please try again.")
+        print(f"Invalid data: {e}, please try again.\n")
         return False
     return True
+
+# def validate_player_input(player_board, ship_size, x, y, orientation):
+#     try:
+#         if x < 0 or x >= player_board.size:
+#             raise ValueError("Row numbers out of bounds") 
+#         elif y < 0 or y >= player_board.size:
+#             raise ValueError("Column numbers out of bounds")
+#         elif orientation not in ["up", "down", "left", "right"]:
+#             raise ValueError("Orientation must be one of 'up', 'down', 'left', 'right'")
+#         ship_end_x = x + (ship_size - 1) * (orientation in ["down", "up"])
+#         ship_end_y = y + (ship_size - 1) * (orientation in ["right", "left"])
+#         if ship_end_x < 0 or ship_end_x >= player_board.size or ship_end_y < 0 or ship_end_y >= player_board.size:
+#             raise ValueError("Ship goes off the board")
+#         for i in range(ship_size):
+#             ship_x = x + i * (orientation in ["down", "up"])
+#             ship_y = y + i * (orientation in ["right", "left"])
+#             if (ship_x, ship_y) in player_board.ship_pos:
+#                 raise ValueError("You have already placed a ship at this location")
+#     except ValueError as e:
+#         print(f"Invalid data: {e}, please try again.")
+#         return False
+#     return True
 
 
 def validate_player_input_data_type(ship_size_input, x_input, y_input, orientation):
