@@ -139,14 +139,18 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
         ship_end_x_down = x + (ship_size - 1)
         ship_end_y_right = y + (ship_size - 1) 
         ship_end_y_left = y - (ship_size - 1)
-        if ship_end_x_up < 0:
-            raise ValueError("Ship goes out of bounds")
-        elif ship_end_x_down >= (player_board.size-1):
-            raise ValueError("Ship goes out of bounds")
-        elif ship_end_y_right >= (player_board.size-1):
-            raise ValueError("Ship goes out of bounds")
-        elif ship_end_y_left < 0:
-            raise ValueError("Ship goes out of bounds")
+        if orientation == "up":
+            if ship_end_x_up < 0:
+                raise ValueError("Ship goes out of bounds")
+        elif orientation == "down":
+            if ship_end_x_down >= (player_board.size-1):
+                raise ValueError("Ship goes out of bounds")
+        elif orientation == "right":
+            if ship_end_y_right >= (player_board.size-1):
+                raise ValueError("Ship goes out of bounds")
+        elif orientation == "left":
+            if ship_end_y_left < 0:
+                raise ValueError("Ship goes out of bounds")
         # elif orientation == "up":
         #     if x-ship_size+1 < 0:
         #         raise ValueError("Ships coordinates must not go off the board")
