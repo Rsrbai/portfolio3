@@ -107,18 +107,36 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
         for i in range(computer_board.ships):
             if (x, y+i) in computer_board.ship_pos:
                 raise ValueError("Computer picking...") 
+        if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
+            exit("Fatal error")   
+        ship_end_x_up = x - (ship_size - 1)
+        ship_end_x_down = x + (ship_size - 1)
+        ship_end_y_right = y + (ship_size - 1) 
+        ship_end_y_left = y - (ship_size - 1)
         if orientation == "up":
-            if x-ship_size+1 < 0:
+            if ship_end_x_up < 0:
                 raise ValueError("Computer picking...")
         elif orientation == "down":
-            if x+ship_size-1 >= computer_board.size:
-                raise ValueError("Computer picking...")
-        elif orientation == "left":
-            if y-ship_size+1 < 0:
+            if ship_end_x_down >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
         elif orientation == "right":
-            if y+ship_size-1 >= computer_board.size:
+            if ship_end_y_right >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
+        elif orientation == "left":
+            if ship_end_y_left < 0:
+                raise ValueError("Computer picking...")
+        # if orientation == "up":
+        #     if x-ship_size+1 < 0:
+        #         raise ValueError("Computer picking...")
+        # elif orientation == "down":
+        #     if x+ship_size-1 >= computer_board.size:
+        #         raise ValueError("Computer picking...")
+        # elif orientation == "left":
+        #     if y-ship_size+1 < 0:
+        #         raise ValueError("Computer picking...")
+        # elif orientation == "right":
+        #     if y+ship_size-1 >= computer_board.size:
+        #         raise ValueError("Computer picking...")
     except ValueError as e:
         print(f"Please wait: {e}")
         return False
