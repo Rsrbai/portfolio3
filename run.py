@@ -104,7 +104,7 @@ def validate_attacks_input(attack_input):
 
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
     try:
-        if (x, y) in range(computer_board.ships):
+        if (x, y) in computer_board.ship_pos:
             raise ValueError("Computer picking...")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             exit("Fatal error")   
@@ -167,7 +167,7 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
 
 def validate_player_input(player_board, ship_size, x, y, orientation):
     try:
-        if (x, y) in range(player_board.ship_pos):
+        if (x, y) in player_board.ship_pos:
             raise ValueError("You have already placed a ship here")
         if orientation != "up" and orientation != "down" and orientation != "left" and orientation != "right":
             raise ValueError(f"Valid data = up, down, left and right, you entered {orientation}")   
