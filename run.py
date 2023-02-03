@@ -4,6 +4,12 @@ from sys import exit
 scores = {"computer": 0, "player": 0}
 
 class Board:
+    """
+    Board class with a method to initialise a class of board which is what
+    holds on the data of each board in use and stores data such as ship
+    positions, number of attacks, size of board, hits and guesses, also stores the code
+    used to print each board
+    """
     def __init__(self, size, ships, name, attacks, type):
         self.size = size
         self.board = [["." for x in range(size)] for y in range(size)]
@@ -16,6 +22,10 @@ class Board:
         self.hits = []
 
     def place_ship(self, ship_size, x, y, orientation, type):
+        """
+        Method to place each ships on the board and store the ship location in the 
+        ship position array 
+        """
         if orientation == "up":
             for i in range(ship_size):
                 if type == "player":
@@ -38,7 +48,10 @@ class Board:
                 self.ship_pos.append((x, y+i))
     
     def print_computer_end(self):
-
+        """
+        Method to print the computers final board of the game, revealing all ship locations
+        to the player
+        """
         for x, y in self.ship_pos:
             self.board[x][y] = "S"
         for x, y in self.hits:
@@ -46,7 +59,11 @@ class Board:
         self.print_board()
 
     def guess(self, x, y):
-
+        """
+        Method to check if the computer or users guess is in the ship_pos array
+        therefore indicating a hit, changing the coordinates to represent
+        the outcome of the guess, hit or miss. Stores hits in the hits array.
+        """
         self.guesses.append((x, y))
         self.board[x][y] = "M"
 
@@ -58,6 +75,10 @@ class Board:
             return "Miss"
     
     def print_board(self):
+        """
+        Method to print each board for the user and computer, numbering the top and left hand
+        side as a visual aide to the user.
+        """
         if self.type == "player":
             print(f"{self.type}: {self.name}")
             print("  ", end="")
@@ -86,6 +107,9 @@ def random_point_ship_orientation():
     return randint(0,3)
 
 def validate_attacks_input(attack_input):
+    """
+    Function checking the data input from the user setting the amount of attacks
+    """
     try:
         if attack_input == "n":
             exit("You have ended the game.")
@@ -98,6 +122,11 @@ def validate_attacks_input(attack_input):
     return True
 
 def validate_computer_input(computer_board, ship_size, x, y, orientation):
+    """
+    Function validating the computers input, ensuring ships dont go off the board
+    or if the direction of your ship means your ship would extend over 
+    another ship this catches that
+    """
     try:
         if (x, y) in computer_board.ship_pos:
             raise ValueError("Computer picking...")
@@ -141,6 +170,11 @@ def validate_computer_input(computer_board, ship_size, x, y, orientation):
     return True
 
 def validate_player_input(player_board, ship_size, x, y, orientation):
+    """
+    Function validating the data input from the user to ensure ships dont go
+    out of bounds, they havnt already tried to place in the coordinates
+    and to stop ships extending over other ships
+    """
     try:
         if (x, y) in player_board.ship_pos:
             raise ValueError("You have already placed a ship here")
@@ -189,6 +223,9 @@ def validate_player_input(player_board, ship_size, x, y, orientation):
     return True
 
 def validate_player_input_data_type(ship_size_input, x_input, y_input, orientation):
+    """
+    Function to validate the data type of the input values and that they are within paramaters
+    """
     try:
         if ship_size_input == "n" or x_input == "n" or y_input == "n" or orientation == "n":
             exit("You have ended the game.")
@@ -206,7 +243,9 @@ def validate_player_input_data_type(ship_size_input, x_input, y_input, orientati
 
 
 def populate_player_board(player_board):
-    
+    """
+    Function taking data from the user and using it to pass to the place_ship method in the board class
+    """
     for i in range(player_board.ships):
 
         while True:
@@ -226,7 +265,9 @@ def populate_player_board(player_board):
                 break
 
 def populate_computer_board(computer_board):
-      
+    """
+    Function generating data for the computer and using it to pass to the place_ship method in the board class
+    """
     ship_orientations = ["up", "down","left","right"]
     for i in range(computer_board.ships):
         while True:
@@ -241,7 +282,10 @@ def populate_computer_board(computer_board):
             break
 
 def validate_attacks(computer_board, player_board, x, y, type):
-
+    """
+    Function validating the attack data from the user checking that the user 
+    hasnt attacked this coordinates already
+    """
     try:
         if type == "player":
             if (x, y) in computer_board.guesses:
@@ -258,7 +302,9 @@ def validate_attacks(computer_board, player_board, x, y, type):
     return True
 
 def validate_attacks_data(player_board, x_input, y_input):
-
+    """
+    Function validating data type and checking that it is within paramaters
+    """
     try:
         if x_input == "n" or y_input == "n":
             exit("You have ended the game.")
@@ -278,6 +324,9 @@ def validate_attacks_data(player_board, x_input, y_input):
     return True
 
 def player_attack(computer_board, player_board):
+    """
+    Function taking data from the user, validating it and passing it to the guess method
+    """
     while True:
         type = "player"
         x_input = input("Enter the row coordinate for your attack!(n to quit): \n")
@@ -297,6 +346,9 @@ def player_attack(computer_board, player_board):
         
 
 def computer_attack(computer_board, player_board):
+    """
+    Function generating data for the computer to be validated and passed to the guess method
+    """
     while True:
         type = "computer"
         x = random_point(computer_board.size)
@@ -312,7 +364,9 @@ def computer_attack(computer_board, player_board):
             break
 
 def play_game(computer_board, player_board):
-
+    """
+    Function that controls the overall flow of the game
+    """
     player_board.print_board()
     computer_board.print_board()    
     populate_player_board(player_board)
@@ -338,7 +392,10 @@ def play_game(computer_board, player_board):
         print("Computer wins!")
      
 def new_game():
-
+    """
+    Function starting a new game, taking input from the user and using it to initialise a class of 
+    player_board and computer_board
+    """
     size = 7
     ships = 3
     scores["computer"] = 0
