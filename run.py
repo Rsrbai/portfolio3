@@ -104,15 +104,21 @@ class Board:
             print(f"{i} " + " ".join(row))
 
 def random_point(size):
-
+    """
+    Helper function to get a random interger between 0 and board size - 1
+    """
     return randint(0, size-1)
 
 def random_point_ship_size():
-
+    """
+    Helper function to get a random integer between 1 and 4
+    """
     return randint(1, 4)
 
 def random_point_ship_orientation():
-
+    """
+    Helper function to get a random integer between 0 and 3
+    """
     return randint(0,3)
 
 def validate_attacks_input(attack_input):
