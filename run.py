@@ -413,7 +413,7 @@ def new_game():
     print("Welcome to World of Battleships")
     player_name = input("Please enter your name: \n")
     while True:
-        attack_input = input("Enter the amount of attacks(No. of attacks sets game length, n to quit): \n")
+        attack_input = input("Enter the amount of attacks(No. of attacks sets game length, enter n to quit): \n")
         if validate_attacks_input(attack_input):
             attacks = int(attack_input)
         else:
