@@ -1,12 +1,21 @@
 from random import randint
 from sys import exit
 
+# Welcome to World of Battleships, the aim of the game is to have a higher score than the computer
+# once all attacks have been used up. This means the length of the game is determined by the amount
+# of attacks sets when asked to set the amount of attacks you would like to have.
+# Enter n into any field that requires input except the "name" field to end the game at the end of the 
+# current ship placing or attacking phase. The game is fully customizable although the game size is not 
+# customizable by the player as there are limitations on how big the board game can be inside the heroku 
+# terminal so game size is set to 7, feel free to play a game on a higher board size but this must be 
+# done through changing the code in the variable size in the new_game function.
+
 scores = {"computer": 0, "player": 0}
 
 class Board:
     """
     Board class with a method to initialise a class of board which is what
-    holds on the data of each board in use and stores data such as ship
+    holds all the data of each board in use and stores data such as ship
     positions, number of attacks, size of board, hits and guesses, also stores the code
     used to print each board
     """
