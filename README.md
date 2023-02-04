@@ -15,8 +15,7 @@ of attacks set. Enter "n" into any field that requires input except the "name" f
 current phase. The game is fully customizable although the game size is not 
 customizable by the player as there are limitations on how big the board game can be inside the heroku 
 terminal, so game size is set to 7, please feel free to play a game on a higher board size, this must be 
-done through changing the variable size in the new_game function, because of limitation to board size I have also
-capped the number of ships at 3, this is also customizeable.
+done through changing the variable size in the new_game function (Board will be visually deformed on sizes above 10), because of limitation to board size I have also capped the number of ships at 3, this is also customizeable.
 
 ## Rules
 
@@ -83,6 +82,7 @@ capped the number of ships at 3, this is also customizeable.
 - Bigger terminal allowing for bigger game size
 - Ship type for example, destroyer, submarine etc.
 - A more exciting display for winning the game
+- Make the game size customizealbe past 10 
 
 # Data model
 
