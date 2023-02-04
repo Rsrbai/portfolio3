@@ -3,9 +3,9 @@ from sys import exit
 
 # Welcome to World of Battleships, the aim of the game is to have a higher score than the computer
 # once all attacks have been used up. This means the length of the game is determined by the amount
-# of attacks sets when asked to set the amount of attacks you would like to have.
-# Enter n into any field that requires input except the "name" field to end the game at the end of the 
-# current ship placing or attacking phase. The game is fully customizable although the game size is not 
+# of attacks set when asked to set the amount of attacks you would like to have.
+# Enter "n" into any field that requires input except the "name" field to end the game at the end of the 
+# current phase. The game is fully customizable although the game size is not 
 # customizable by the player as there are limitations on how big the board game can be inside the heroku 
 # terminal so game size is set to 7, feel free to play a game on a higher board size but this must be 
 # done through changing the code in the variable size in the new_game function.
