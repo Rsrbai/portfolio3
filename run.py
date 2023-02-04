@@ -258,10 +258,10 @@ def populate_player_board(player_board):
     for i in range(player_board.ships):
 
         while True:
-            ship_size_input = input("Enter the size of your ship from 1-4 (press n to quit): \n")
-            x_input = input("Enter row for ship placement (press n to quit): \n")
-            y_input = input("Enter column coordinate for ship placement (press n to quit): \n")
-            orientation = input("Enter the orientation for the ship (press n to quit): \n")
+            ship_size_input = input("Enter the size of your ship from 1-4 (Enter n to quit at end of phase): \n")
+            x_input = input("Enter row for ship placement (Enter n to quit at end of phase): \n")
+            y_input = input("Enter column coordinate for ship placement (Enter n to quit at end of phase): \n")
+            orientation = input("Enter the orientation for the ship (Enter n to quit): \n")
             if validate_player_input_data_type(ship_size_input, x_input, y_input, orientation):
                 ship_size = int(ship_size_input)
                 x = int(x_input)
@@ -338,8 +338,8 @@ def player_attack(computer_board, player_board):
     """
     while True:
         type = "player"
-        x_input = input("Enter the row coordinate for your attack!(n to quit): \n")
-        y_input = input("Enter the column coordinate for your attack!(n to quit): \n")
+        x_input = input("Enter the row coordinate for your attack!(Enter n to quit at end of phase): \n")
+        y_input = input("Enter the column coordinate for your attack!(Enter n to quit): \n")
         if validate_attacks_data(player_board, x_input, y_input):
             x = int(x_input)
             y = int(y_input)
