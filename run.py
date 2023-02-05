@@ -155,28 +155,28 @@ def validate_computer_input(computer_board, ship_size, x, y, orien):
             else:
                 for i in range(computer_board.ships):
                     if (x-i, y) in computer_board.ship_pos:
-                        raise ValueError("Computer picking...1")
+                        raise ValueError("Computer picking...")
         elif orien == "down":
             if ship_end_x_down >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
             else:
                 for i in range(computer_board.ships):
                     if (x+i, y) in computer_board.ship_pos:
-                        raise ValueError("Computer picking...2")
+                        raise ValueError("Computer picking...")
         elif orien == "right":
             if ship_end_y_right >= (computer_board.size-1):
                 raise ValueError("Computer picking...")
             else:
                 for i in range(computer_board.ships):
                     if (x, y+i) in computer_board.ship_pos:
-                        raise ValueError("Computer picking...3")
+                        raise ValueError("Computer picking...")
         elif orien == "left":
             if ship_end_y_left < 0:
                 raise ValueError("Computer picking...")
             else:
                 for i in range(computer_board.ships):
                     if (x, y-i) in computer_board.ship_pos:
-                        raise ValueError("Computer picking...4")
+                        raise ValueError("Computer picking...")
     except ValueError as e:
         print(f"Please wait: {e}")
         return False
@@ -195,9 +195,9 @@ def validate_p_in(player_board, ship_size, x, y, orien):
         if orien not in ["up", "down", "left", "right"]:
             raise ValueError(f"You entered {orien}")
         elif x < 0 or x > (player_board.size - 1):
-            raise ValueError(f"Row not between 0 and {player_board.size-1}")
+            raise ValueError(f"Row is not between 0 and {player_board.size-1}")
         elif y < 0 or y > (player_board.size - 1):
-            raise ValueError(f"Col not between 0 and {player_board.size-1}")
+            raise ValueError(f"Col is not between 0 and {player_board.size-1}")
         ship_end_x_up = x - (ship_size - 1)
         ship_end_x_down = x + (ship_size - 1)
         ship_end_y_right = y + (ship_size - 1)
@@ -334,11 +334,11 @@ def validate_attacks_data(player_board, x_input, y_input):
         int(x_input)
         int(y_input)
         if int(x_input) < 0:
-            raise ValueError(f"Row no. not between 0-{player_board.size-1}")
+            raise ValueError(f"Row No. not between 0-{player_board.size-1}")
         elif int(x_input) > player_board.size-1:
-            raise ValueError(f"Row no. not between 0-{player_board.size-1}")
+            raise ValueError(f"Row No. not between 0-{player_board.size-1}")
         elif int(y_input) < 0:
-            raise ValueError(f"Col no. not between 0-{player_board.size-1}")
+            raise ValueError(f"Col No. not between 0-{player_board.size-1}")
         elif int(y_input) > player_board.size-1:
             raise ValueError(f"Col no. not between 0-{player_board.size-1}")
     except ValueError as e:

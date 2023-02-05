@@ -82,7 +82,7 @@ done through changing the variable size in the new_game function (Board will be 
 - Bigger terminal allowing for bigger game size
 - Ship type for example, destroyer, submarine etc.
 - A more exciting display for winning the game
-- Make the game size customizealbe past 10 
+- Make the game size customizeable past 10 
 
 # Data model
 
@@ -131,4 +131,12 @@ of the computer to reveal ship locations to the player, a method to check the co
 ![Test win](images/testing/test_win.png)
 - Test tie result
 ![Test tie](images/testing/test_tie.png)
+
+## Python Linter
+
+This was a challenge as I did not write my code with restrictions on line length.
+I had to change the if statements in player validate input and computer validate input
+to not in statement using an array of [up, down, left, right]
+
+![Python linter test](images/testing/test_python_linter.png)
 
